@@ -59,3 +59,24 @@ public:
     }
 };
 
+
+
+4.  Symmetric Tree(https://leetcode.com/problems/symmetric-tree/?envType=study-plan-v2&envId=top-interview-150)
+
+Solution: 
+
+class Solution {
+public:
+
+    bool isMirror(TreeNode* root1, TreeNode* root2){
+        if(!root1 and !root2) return 1;
+        if(root1 and root2 and root1->val == root2->val) return (isMirror(root1->left, root2->right) and isMirror(root1->right, root2->left));
+    
+    return 0;
+    }
+
+    bool isSymmetric(TreeNode* root) {
+        return isMirror(root, root);
+    }
+};
+
