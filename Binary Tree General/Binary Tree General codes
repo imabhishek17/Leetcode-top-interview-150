@@ -3,6 +3,8 @@
 
 Solution: 
 
+//DFS approach
+
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
@@ -15,6 +17,81 @@ public:
     }
 };
 
+// BFS approach
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+
+        queue<TreeNode*>que;
+        que.push(root);
+
+        int depth=0;
+
+        while(!que.empty()){
+            depth++;
+            int n = que.size();
+            while(n--){
+                TreeNode* temp = que.front();
+                que.pop();
+
+                if(temp->left) que.push(temp->left);
+                if(temp->right) que.push(temp->right);
+            }
+        }
+        return depth;
+    }
+};
+
+Bonus Question (ABOVE FOLLOW QUESTION)
+
+Minimum Depth of Binary Tree(https://leetcode.com/problems/minimum-depth-of-binary-tree/)
+
+Solution: 
+
+//DFS approach
+
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+
+        int L = minDepth(root->left);
+        int R = minDepth(root->right);
+
+        return (root->left and root->right) ? 1+min(L,R) : 1+max(L,R);
+    }
+};
+
+//BFS approach
+
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+
+        queue<TreeNode*>que;
+        que.push(root);
+
+        int depth=0;
+
+        while(!que.empty()){
+            depth++;
+            int n = que.size();
+            while(n--){
+                TreeNode* temp = que.front();
+                que.pop();
+
+                if(!temp->left and !temp->right) return depth;
+
+                if(temp->left) que.push(temp->left);
+                if(temp->right) que.push(temp->right);
+            }
+        }
+        return depth;
+    }
+};
 
 2. Same Tree (https://leetcode.com/problems/same-tree/?envType=study-plan-v2&envId=top-interview-150)
 
