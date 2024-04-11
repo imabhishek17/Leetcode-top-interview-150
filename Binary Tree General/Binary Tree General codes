@@ -271,6 +271,31 @@ public:
 };
 
 
+10. Sum Root to Leaf Numbers (https://leetcode.com/problems/sum-root-to-leaf-numbers/?envType=study-plan-v2&envId=top-interview-150)
+
+Input: root = [4,9,0,5,1]
+Output: 1026
+
+Solution: 
+
+class Solution {
+public:
+
+    int solve(TreeNode* root, int curr){
+        if(!root) return 0;
+
+        curr = (curr*10) + root->val;
+
+        if(!root->left and !root->right) return curr;
+
+        return solve(root->left, curr) + solve(root->right, curr);
+    }
+
+    int sumNumbers(TreeNode* root) {
+        return solve(root, 0);
+    }
+};
+
 
 
 13. Count Complete Tree Nodes (https://leetcode.com/problems/count-complete-tree-nodes/?envType=study-plan-v2&envId=top-interview-150)
