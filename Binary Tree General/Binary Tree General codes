@@ -188,3 +188,201 @@ public:
     }
 };
 
+
+5. Construct Binary Tree from Preorder and Inorder Traversal (https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/?envType=study-plan-v2&envId=top-interview-150)
+
+Solution: 
+
+class Solution {
+public:
+
+    TreeNode* solve(vector<int>&preorder, vector<int>inorder, int start, int end, int &idx){
+        if(start > end) return NULL;
+
+        TreeNode* root = new TreeNode(preorder[idx]);
+
+        int ptr = start;
+
+        while(inorder[ptr] != root->val) ptr++;        
+        
+        idx++;
+        root->left = solve(preorder, inorder, start, ptr-1, idx);
+        root->right = solve(preorder, inorder, ptr+1, end, idx);
+
+        return root;
+    }
+
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(!preorder.size()) return NULL;
+
+        int idx = 0;
+        return solve(preorder, inorder, 0, inorder.size()-1, idx);
+    }
+};
+
+
+
+
+7. Populating Next Right Pointers in Each Node II
+
+
+Solution: 
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root) return root;
+        queue<Node*>q;
+        q.push(root);
+
+        while(!q.empty()){
+            int n = q.size();
+            while(n--){
+                Node* node = q.front();
+                q.pop();
+                if(n==0) node->next = NULL;
+                else node->next = q.front();
+
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+            }
+        }
+        return root;
+    }
+};
+
+
+
+9.  Path Sum (https://leetcode.com/problems/path-sum/?envType=study-plan-v2&envId=top-interview-150)
+
+
+Solution: 
+
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(!root) return 0;
+
+        if(root->val == targetSum and !root->left and !root->right) return 1;
+
+        return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
+    }
+};
+
+
+
+
+13. Count Complete Tree Nodes (https://leetcode.com/problems/count-complete-tree-nodes/?envType=study-plan-v2&envId=top-interview-150)
+
+(NOTE: Design an algorithm that runs in less than O(n) time complexity.)
+
+Solution: 
+
+
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if(!root) return 0;
+
+        int lh = findLeftHeight(root);
+        int rh = findRightHeight(root);
+
+        if(lh == rh) return (1<<lh)-1;
+
+        return 1 + countNodes(root->left) + countNodes(root->right);
+    }
+
+    int findLeftHeight(TreeNode* root){
+        if(!root) return 0;
+        TreeNode* temp = root;
+
+        int cnt = 0;
+        while(temp){
+            temp = temp->left;
+            cnt++;
+        }
+        return cnt;
+    }
+
+    int findRightHeight(TreeNode* root){
+        if(!root) return 0;
+        TreeNode* temp = root;
+
+        int cnt = 0;
+        while(temp){
+            temp = temp->right;
+            cnt++;
+        }
+        return cnt;
+    }
+};
+
+
+16. Average of Levels in Binary Tree (https://leetcode.com/problems/average-of-levels-in-binary-tree/?envType=study-plan-v2&envId=top-interview-150)
+
+Solution: 
+
+
+class Solution {
+public:
+    vector<double> averageOfLevels(TreeNode* root) {
+        queue<TreeNode*>q;
+        q.push(root);
+
+        vector<double>res;
+        while(!q.empty()){
+            int n = q.size();
+            
+            double sum = 0;
+            int cnt = 0;
+            while(n--){
+                TreeNode* temp = q.front();
+                q.pop();
+
+                sum+= temp->val;
+                cnt++;
+
+                if(temp->left) q.push(temp->left);
+                if(temp->right) q.push(temp->right);
+            }
+            res.emplace_back(sum/cnt);
+        }
+        return res;
+    }
+};
+
+
+17. Binary Tree Level Order Traversal (https://leetcode.com/problems/binary-tree-level-order-traversal/?envType=study-plan-v2&envId=top-interview-150)
+
+Solution: 
+
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        queue<TreeNode*> q;
+        q.push(root);
+        vector<vector<int>>res;
+        while(!q.empty()){
+            int n = q.size();
+            vector<int>v;
+            while(n--){
+                TreeNode* temp = q.front();
+                q.pop();
+                v.emplace_back(temp->val);
+
+                if(temp->left) q.push(temp->left);
+                if(temp->right) q.push(temp->right);
+            }
+            res.emplace_back(v);
+        }
+        return res;
+    }
+};
+
+
+
+
+
