@@ -196,30 +196,61 @@ Solution:
 class Solution {
 public:
 
-    TreeNode* solve(vector<int>&preorder, vector<int>inorder, int start, int end, int &idx){
+    TreeNode* solve(vector<int>&inorder, vector<int>&preorder, int start, int end, int &preIdx, map<int,int>&mp) {
         if(start > end) return NULL;
 
-        TreeNode* root = new TreeNode(preorder[idx]);
+        TreeNode* root = new TreeNode(preorder[preIdx++]);
+        int i = mp[root->val];
 
-        int ptr = start;
-
-        while(inorder[ptr] != root->val) ptr++;        
+        root->left = solve(inorder, preorder, start, i-1, preIdx, mp);
+        root->right = solve(inorder, preorder, i+1, end, preIdx, mp);
         
-        idx++;
-        root->left = solve(preorder, inorder, start, ptr-1, idx);
-        root->right = solve(preorder, inorder, ptr+1, end, idx);
-
         return root;
     }
 
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        if(!preorder.size()) return NULL;
-
-        int idx = 0;
-        return solve(preorder, inorder, 0, inorder.size()-1, idx);
+        int n = inorder.size();
+        int preIdx = 0;
+        map<int,int>mp;
+        for(int i=0;i<inorder.size(); i++){
+            mp[inorder[i]] = i;
+        }
+        return solve(inorder, preorder, 0, n-1, preIdx, mp);
     }
 };
 
+
+6. Construct Binary Tree from Inorder and Postorder Traversal (https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/?envType=study-plan-v2&envId=top-interview-150)
+
+(Ismai "root->right" pahale aya hai "root->left" se, solution mai because postorder mai root last mai aata hai aur root ke baad jo bhi aata node wo inorder mai right mai hai , so that's why first right then left recursive call)
+
+
+Solution: 
+
+class Solution {
+public:
+
+    TreeNode* solve(vector<int>&inorder, vector<int>&postorder, int start, int end, int &postIdx) {
+        if(start > end) return NULL;
+
+        TreeNode* root = new TreeNode(postorder[postIdx]);
+        int i = start;
+        while(inorder[i]!=postorder[postIdx]) i++;
+
+        postIdx--;
+        root->right = solve(inorder, postorder, i+1, end, postIdx);
+        root->left = solve(inorder, postorder, start, i-1, postIdx);
+
+        return root;
+    }
+
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int n = inorder.size();
+        int postIdx = n-1;
+
+        return solve(inorder, postorder, 0, n-1, postIdx);
+    }
+};
 
 
 
