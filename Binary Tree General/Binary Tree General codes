@@ -285,11 +285,29 @@ public:
 
 8. Flatten Binary Tree to Linked List (https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/?envType=study-plan-v2&envId=top-interview-150)
 
+Input: root = [1,2,5,3,4,null,6]
+Output: [1,null,2,null,3,null,4,null,5,null,6]
+
 Solution: 
 
-
-
-
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* node = root;
+        while(node){
+            if(node->left){
+                TreeNode* rightMost = node->left;
+                while(rightMost->right){
+                    rightMost = rightMost->right;
+                }
+                rightMost->right = node->right;
+                node->right = node->left;
+                node->left = NULL;
+            }
+            node = node->right;
+        }
+    }
+};
 
 
 9.  Path Sum (https://leetcode.com/problems/path-sum/?envType=study-plan-v2&envId=top-interview-150)
