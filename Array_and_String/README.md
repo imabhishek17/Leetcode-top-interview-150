@@ -1,4 +1,4 @@
-# 1. Merge Sorted Array (https://leetcode.com/problems/merge-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
+# 1. Merge Sorted Array ([link](https://leetcode.com/problems/merge-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150))
 
 - Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
 - Output: [1,2,2,3,5,6]
@@ -33,7 +33,7 @@ public:
 ```
 
 
-# 2. Remove Element (https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150)
+# 2. Remove Element ([link](https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
 
@@ -60,7 +60,7 @@ public:
 };
 ```
 
-# 3. Remove Duplicates from Sorted Array (https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
+# 3. Remove Duplicates from Sorted Array ([link](https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
 
@@ -94,7 +94,7 @@ public:
 };
 ```
 
-# 4. Remove Duplicates from Sorted Array II (https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 4. Remove Duplicates from Sorted Array II ([link](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same.
 
@@ -132,7 +132,7 @@ public:
 };
 ```
 
-# 5. Majority Element (https://leetcode.com/problems/majority-element/description/?envType=study-plan-v2&envId=top-interview-150)
+# 5. Majority Element ([link](https://leetcode.com/problems/majority-element/description/?envType=study-plan-v2&envId=top-interview-150))
 
 
 
@@ -140,7 +140,7 @@ public:
 
 
 
-# 6. Rotate Array (https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150)
+# 6. Rotate Array ([link](https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
@@ -166,7 +166,7 @@ public:
 };
 ```
 
-# 7. Best Time to Buy and Sell Stock (https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150)
+# 7. Best Time to Buy and Sell Stock ([link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150))
 
 You are given an array prices where prices[i] is the price of a given stock on the ith day.
 
@@ -198,13 +198,11 @@ public:
 };
 ```
 
-# 8. Best Time to Buy and Sell Stock II (https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 8. Best Time to Buy and Sell Stock II ([link](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150))
 
 
 You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
-
 On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
-
 Find and return the maximum profit you can achieve.
 
 
@@ -235,10 +233,9 @@ public:
 };
 ```
 
-# 9. Jump Game (https://leetcode.com/problems/jump-game/description/?envType=study-plan-v2&envId=top-interview-150)
+# 9. Jump Game ([link](https://leetcode.com/problems/jump-game/description/?envType=study-plan-v2&envId=top-interview-150))
 
 You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
-
 Return true if you can reach the last index, or false otherwise.
 
 
@@ -267,7 +264,7 @@ public:
 ```
 
 
-# 10. Jump Game II (https://leetcode.com/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 10. Jump Game II ([link](https://leetcode.com/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150))
 
 You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
 
@@ -332,7 +329,7 @@ public:
 };
 ```
 
-# 11. H-Index (https://leetcode.com/problems/h-index/description/?envType=study-plan-v2&envId=top-interview-150)
+# 11. H-Index ([link](https://leetcode.com/problems/h-index/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
 
