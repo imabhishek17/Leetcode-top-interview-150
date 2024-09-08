@@ -388,19 +388,148 @@ public:
 };
 ```
 
+# 12. Insert Delete GetRandom O(1) ([link](https://leetcode.com/problems/insert-delete-getrandom-o1/description/?envType=study-plan-v2&envId=top-interview-150))
+
+Problem Stement : Open link
 
 
+### Example
+
+#### Input:
+```plaintext
+["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
+[[], [1], [2], [2], [], [1], [2], []]
+```
+
+#### Output: 
+```plaintext
+[null, true, false, true, 2, true, false, 2]
+```
+
+**SOLUTION:**
+
+```cpp
+class RandomizedSet {
+public:
+    vector<int>v;
+    map<int,int>m;
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        if(m.find(val)!=m.end()) return false;
+
+        v.push_back(val);
+        m.insert({val, v.size()-1});
+        return true;
+    }
+    
+    bool remove(int val) {
+        if(m.find(val)==m.end()) return false;
+
+        int idx = m[val];
+        int lastElement = v.back();
+        v.back() = val;
+        v[idx] = lastElement;
+
+        m[lastElement] = idx;
+        v.pop_back();
+        m.erase(val);
+        return true;
+    }
+    
+    int getRandom() {
+        int n = v.size();
+        int random = rand()%n;
+        return v[random]; 
+    }
+};
+```
+
+# 13. Product of Array Except Self
+
+### Example 1:
+
+#### Input: 
+
+```plaintext
+nums = [1,2,3,4]
+```
+
+#### Output:
+```plaintext
+[24,12,8,6]
+```
+
+### Example 2:
+
+#### Input: 
+
+```plaintext
+nums = [-1,1,0,-3,3]
+```
+
+#### Output: 
+
+```plaintext
+[0,0,9,0,0]
+```
 
 
+**SOLUTION:**
+
+```cpp
+# Brute Force (O(n²)): Using a nested loop i.e. skip the current element and multiply all other elements which is basically the product by multiplying the elements on the left side and the right side of the current index.
+
+# Optimised but extra space
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>res(n);    // left cummulative multiplication
+        res[0] = 1; 
+        for(int i = 1; i < n; i++) {
+            res[i] = nums[i - 1] * res[i - 1];
+        }
+
+        vector<int>right(n);    // left cummulative multiplication
+        right[n-1] = 1; 
+        for(int i = n-2; i >= 0; i--) {
+            right[i] = nums[i + 1] * right[i + 1];
+        }
+
+        for(int i = 0; i < n; i++) {
+            res[i] = res[i] * right[i];
+        }
+
+        return res;
+    }
+};
 
 
+# More optimized approach without taking Right Array Space (i.e. Reducing Space Complexity)
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>res(n);    // left cummulative multiplication
+        res[0] = 1; 
+        for(int i = 1; i < n; i++) {
+            res[i] = nums[i - 1] * res[i - 1];
+        }
 
+        int product = 1;   // handling right cummulative multiplication
 
-
-
-
-
-
+        for(int i = n - 1; i >= 0; i--) {
+         res[i] = product * res[i]; 
+         product *= nums[i];
+        }
+        
+        return res;
+    }
+};
+```
 
 
 
