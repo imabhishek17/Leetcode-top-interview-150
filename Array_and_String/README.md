@@ -1,12 +1,14 @@
-1. Merge Sorted Array (https://leetcode.com/problems/merge-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
+# 1. Merge Sorted Array (https://leetcode.com/problems/merge-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
 
-Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
-Output: [1,2,2,3,5,6]
+- Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+- Output: [1,2,2,3,5,6]
 
-Input: nums1 = [0], m = 0, nums2 = [1], n = 1
-Output: [1]
+- Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+- Output: [1]
 
-SOLUTION: 
+**SOLUTION:**
+
+```cpp
 
 class Solution {
 public:
@@ -28,21 +30,22 @@ public:
         }
     }
 };
+```
 
 
-
-2. Remove Element (https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150)
+# 2. Remove Element (https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150)
 
 Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
 
-Input: nums = [3,2,2,3], val = 3
-Output: 2, nums = [2,2,_,_]
+- Input: nums = [3,2,2,3], val = 3
+- Output: 2, nums = [2,2,_,_]
 
-Input: nums = [0,1,2,2,3,0,4,2], val = 2
-Output: 5, nums = [0,1,4,0,3,_,_,_]
+- Input: nums = [0,1,2,2,3,0,4,2], val = 2
+- Output: 5, nums = [0,1,4,0,3,_,_,_]
 
-SOLUTION: 
+**SOLUTION:**
 
+```cpp
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
@@ -55,9 +58,9 @@ public:
         return j;
     }
 };
+```
 
-
-3. Remove Duplicates from Sorted Array (https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
+# 3. Remove Duplicates from Sorted Array (https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150)
 
 Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
 
@@ -67,14 +70,15 @@ Change the array nums such that the first k elements of nums contain the unique 
 Return k.
 
 
-Input: nums = [1,1,2]
-Output: 2, nums = [1,2,_]
+- Input: nums = [1,1,2]
+- Output: 2, nums = [1,2,_]
 
-Input: nums = [0,0,1,1,1,2,2,3,3,4]
-Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+- Input: nums = [0,0,1,1,1,2,2,3,3,4]
+- Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
 
-SOLUTION: 
+**SOLUTION:**
 
+```cpp
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -88,9 +92,9 @@ public:
         return j;
     }
 };
+```
 
-
-4. Remove Duplicates from Sorted Array II (https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 4. Remove Duplicates from Sorted Array II (https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/?envType=study-plan-v2&envId=top-interview-150)
 
 Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same.
 
@@ -99,16 +103,16 @@ Since it is impossible to change the length of the array in some languages, you 
 Return k after placing the final result in the first k slots of nums.
 
 
-Input: nums = [1,1,1,2,2,3]
-Output: 5, nums = [1,1,2,2,3,_]
+- Input: nums = [1,1,1,2,2,3]
+- Output: 5, nums = [1,1,2,2,3,_]
 
-Input: nums = [0,0,1,1,1,1,2,3,3]
-Output: 7, nums = [0,0,1,1,2,3,3,_,_]
-
-
-SOLUTION: 
+- Input: nums = [0,0,1,1,1,1,2,3,3]
+- Output: 7, nums = [0,0,1,1,2,3,3,_,_]
 
 
+**SOLUTION:**
+
+```cpp
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -126,27 +130,29 @@ public:
         return j;
     }
 };
+```
 
-
-5. Majority Element (https://leetcode.com/problems/majority-element/description/?envType=study-plan-v2&envId=top-interview-150)
-
-
-
-SOLUTION: 
+# 5. Majority Element (https://leetcode.com/problems/majority-element/description/?envType=study-plan-v2&envId=top-interview-150)
 
 
 
-6. Rotate Array (https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150)
+**SOLUTION:**
+
+
+
+# 6. Rotate Array (https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150)
 
 Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
 
-Input: nums = [-1,-100,3,99], k = 2
-Output: [3,99,-1,-100]
+- Input: nums = [-1,-100,3,99], k = 2
+- Output: [3,99,-1,-100]
 
 
-SOLUTION: 
+**SOLUTION:**
 
+
+```cpp
 class Solution {
 public:
     
@@ -158,10 +164,9 @@ public:
         reverse(nums, k, n-1);
     }
 };
+```
 
-
-
-7. Best Time to Buy and Sell Stock (https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150)
+# 7. Best Time to Buy and Sell Stock (https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150)
 
 You are given an array prices where prices[i] is the price of a given stock on the ith day.
 
@@ -169,16 +174,16 @@ You want to maximize your profit by choosing a single day to buy one stock and c
 
 Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
-Input: prices = [7,1,5,3,6,4]
-Output: 5
+- Input: prices = [7,1,5,3,6,4]
+- Output: 5
 
-Input: prices = [7,6,4,3,1]
-Output: 0
-
-
-SOLUTION: 
+- Input: prices = [7,6,4,3,1]
+- Output: 0
 
 
+**SOLUTION:**
+
+```cpp
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -191,10 +196,9 @@ public:
         return mx;
     }
 };
+```
 
-
-
-8. Best Time to Buy and Sell Stock II (https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 8. Best Time to Buy and Sell Stock II (https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150)
 
 
 You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
@@ -204,19 +208,19 @@ On each day, you may decide to buy and/or sell the stock. You can only hold at m
 Find and return the maximum profit you can achieve.
 
 
-Input: prices = [7,1,5,3,6,4]
-Output: 7
+- Input: prices = [7,1,5,3,6,4]
+- Output: 7
 
-Input: prices = [1,2,3,4,5]
-Output: 4
+- Input: prices = [1,2,3,4,5]
+- Output: 4
+
+- Input: prices = [7,6,4,3,1]
+- Output: 0
 
 
-Input: prices = [7,6,4,3,1]
-Output: 0
+**SOLUTION:**
 
-
-SOLUTION: 
-
+```cpp
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -229,25 +233,24 @@ public:
        return mx; 
     }
 };
+```
 
-
-9. Jump Game (https://leetcode.com/problems/jump-game/description/?envType=study-plan-v2&envId=top-interview-150)
+# 9. Jump Game (https://leetcode.com/problems/jump-game/description/?envType=study-plan-v2&envId=top-interview-150)
 
 You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
 
 Return true if you can reach the last index, or false otherwise.
 
- 
- Input: nums = [2,3,1,1,4]
-Output: true
 
-Input: nums = [3,2,1,0,4]
-Output: false
+- Input: nums = [2,3,1,1,4]
+- Output: true
 
+- Input: nums = [3,2,1,0,4]
+- Output: false
 
-SOLUTION: 
+**SOLUTION:**
 
-
+```cpp
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
@@ -261,10 +264,10 @@ public:
         return true;
     }
 };
+```
 
 
-
-10. Jump Game II (https://leetcode.com/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150)
+# 10. Jump Game II (https://leetcode.com/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150)
 
 You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].
 
@@ -274,17 +277,16 @@ i + j < n
 Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].
 
 
-Input: nums = [2,3,1,1,4]
-Output: 2
+- Input: nums = [2,3,1,1,4]
+- Output: 2
+
+- Input: nums = [2,3,0,1,4]
+- Output: 2
 
 
-Input: nums = [2,3,0,1,4]
-Output: 2
+**SOLUTION:**
 
-
-SOLUTION: 
-
-
+```cpp
 //DP solution
 class Solution {
 public:
@@ -328,26 +330,25 @@ public:
         return jumps;        
     }
 };
+```
 
-
-11. H-Index (https://leetcode.com/problems/h-index/description/?envType=study-plan-v2&envId=top-interview-150)
+# 11. H-Index (https://leetcode.com/problems/h-index/description/?envType=study-plan-v2&envId=top-interview-150)
 
 Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
 
 According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
 
-Input: citations = [3,0,6,1,5]
-Output: 3
+- Input: citations = [3,0,6,1,5]
+- Output: 3
 
-Input: citations = [1,3,1]
-Output: 1
-
-
-SOLUTION: 
+- Input: citations = [1,3,1]
+- Output: 1
 
 
+**SOLUTION:**
+
+```cpp
 //By sorting
-
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
@@ -365,7 +366,6 @@ public:
 
 
 //Optimised Solution (Bucket sort OR frequency array)
-
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
@@ -389,6 +389,7 @@ public:
         return 0;
     }
 };
+```
 
 
 
