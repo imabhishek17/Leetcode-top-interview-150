@@ -1,10 +1,10 @@
-1. Maximum Depth of Binary Tree (https://leetcode.com/problems/maximum-depth-of-binary-tree/?envType=study-plan-v2&envId=top-interview-150)
+# 1. Maximum Depth of Binary Tree ([link](https://leetcode.com/problems/maximum-depth-of-binary-tree/?envType=study-plan-v2&envId=top-interview-150))
 
 
-Solution: 
+**Solution:**
 
+```cpp
 //DFS approach
-
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
@@ -17,8 +17,7 @@ public:
     }
 };
 
-// BFS approach
-
+//BFS approach
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
@@ -43,15 +42,16 @@ public:
         return depth;
     }
 };
+```
 
-Bonus Question (ABOVE FOLLOW QUESTION)
 
-Minimum Depth of Binary Tree(https://leetcode.com/problems/minimum-depth-of-binary-tree/)
+**Bonus Question (ABOVE FOLLOW QUESTION)**
+# Minimum Depth of Binary Tree ([link](https://leetcode.com/problems/minimum-depth-of-binary-tree/))
 
-Solution: 
+**Solution:** 
 
+```cpp
 //DFS approach
-
 class Solution {
 public:
     int minDepth(TreeNode* root) {
@@ -64,8 +64,8 @@ public:
     }
 };
 
-//BFS approach
 
+//BFS approach
 class Solution {
 public:
     int minDepth(TreeNode* root) {
@@ -92,12 +92,14 @@ public:
         return depth;
     }
 };
+```
 
-2. Same Tree (https://leetcode.com/problems/same-tree/?envType=study-plan-v2&envId=top-interview-150)
+# 2. Same Tree ([link](https://leetcode.com/problems/same-tree/?envType=study-plan-v2&envId=top-interview-150))
 
 
-Solution: 
+**Solution:** 
 
+```cpp
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
@@ -114,14 +116,15 @@ public:
         return isSameLeft and isSameRight;
     }
 };
+```
 
 
-3. Invert Binary Tree (https://leetcode.com/problems/invert-binary-tree/?envType=study-plan-v2&envId=top-interview-150)
+# 3. Invert Binary Tree ([link](https://leetcode.com/problems/invert-binary-tree/?envType=study-plan-v2&envId=top-interview-150))
 
-Solution: 
+**Solution:** 
 
+```cpp
 //DFS approach
-
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
@@ -139,9 +142,6 @@ public:
 };
 
 // BFS approach
-
-Solution: 
-
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
@@ -167,12 +167,13 @@ public:
         return root;
     }
 };
+```
 
+# 4.  Symmetric Tree([link](https://leetcode.com/problems/symmetric-tree/?envType=study-plan-v2&envId=top-interview-150))
 
-4.  Symmetric Tree(https://leetcode.com/problems/symmetric-tree/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
+```cpp
 class Solution {
 public:
 
@@ -187,12 +188,13 @@ public:
         return isMirror(root, root);
     }
 };
+```
 
+# 5. Construct Binary Tree from Preorder and Inorder Traversal ([link](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/?envType=study-plan-v2&envId=top-interview-150))
 
-5. Construct Binary Tree from Preorder and Inorder Traversal (https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
+```cpp
 class Solution {
 public:
 
@@ -218,15 +220,16 @@ public:
         return solve(inorder, preorder, 0, n-1, preIdx, mp);
     }
 };
+```
+
+# 6. Construct Binary Tree from Inorder and Postorder Traversal ([link](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/?envType=study-plan-v2&envId=top-interview-150))
+
+**NOTE: (Ismai "root->right" pahale aya hai "root->left" se, solution mai because postorder mai root last mai aata hai aur root ke baad jo bhi aata node wo inorder mai right mai hai , so that's why first right then left recursive call)**
 
 
-6. Construct Binary Tree from Inorder and Postorder Traversal (https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-(Ismai "root->right" pahale aya hai "root->left" se, solution mai because postorder mai root last mai aata hai aur root ke baad jo bhi aata node wo inorder mai right mai hai , so that's why first right then left recursive call)
-
-
-Solution: 
-
+```cpp
 class Solution {
 public:
 
@@ -251,14 +254,15 @@ public:
         return solve(inorder, postorder, 0, n-1, postIdx);
     }
 };
+```
 
 
+# 7. Populating Next Right Pointers in Each Node II
 
-7. Populating Next Right Pointers in Each Node II
 
+**Solution:** 
 
-Solution: 
-
+```cpp
 class Solution {
 public:
     Node* connect(Node* root) {
@@ -281,15 +285,16 @@ public:
         return root;
     }
 };
+```
 
-
-8. Flatten Binary Tree to Linked List (https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/?envType=study-plan-v2&envId=top-interview-150)
+# 8. Flatten Binary Tree to Linked List ([link](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/?envType=study-plan-v2&envId=top-interview-150))
 
 Input: root = [1,2,5,3,4,null,6]
 Output: [1,null,2,null,3,null,4,null,5,null,6]
 
-Solution: 
+**Solution:**
 
+```cpp
 class Solution {
 public:
     void flatten(TreeNode* root) {
@@ -308,14 +313,15 @@ public:
         }
     }
 };
+```
+
+# 9.  Path Sum ([link](https://leetcode.com/problems/path-sum/?envType=study-plan-v2&envId=top-interview-150))
 
 
-9.  Path Sum (https://leetcode.com/problems/path-sum/?envType=study-plan-v2&envId=top-interview-150)
 
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int targetSum) {
@@ -326,15 +332,16 @@ public:
         return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
     }
 };
+```
 
+# 10. Sum Root to Leaf Numbers ([link](https://leetcode.com/problems/sum-root-to-leaf-numbers/?envType=study-plan-v2&envId=top-interview-150))
 
-10. Sum Root to Leaf Numbers (https://leetcode.com/problems/sum-root-to-leaf-numbers/?envType=study-plan-v2&envId=top-interview-150)
+- Input: root = [4,9,0,5,1]
+- Output: 1026
 
-Input: root = [4,9,0,5,1]
-Output: 1026
+**Solution:**
 
-Solution: 
-
+```cpp
 class Solution {
 public:
 
@@ -352,17 +359,19 @@ public:
         return solve(root, 0);
     }
 };
+```
 
 
-11. Binary Tree Maximum Path Sum (https://leetcode.com/problems/binary-tree-maximum-path-sum/description/?envType=study-plan-v2&envId=top-interview-150)
+# 11. Binary Tree Maximum Path Sum ([link](https://leetcode.com/problems/binary-tree-maximum-path-sum/description/?envType=study-plan-v2&envId=top-interview-150))
 
-Input: root = [-10,9,20,null,null,15,7]
-Output: 42
-Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
+- Input: root = [-10,9,20,null,null,15,7]
+- Output: 42
+- Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
 
 
-Solution: 
+**Solution:** 
 
+```cpp
 class Solution {
 public:
     int solve(TreeNode* root, int & res) {
@@ -387,17 +396,17 @@ public:
         return res;
     }
 };
+```
 
+# 12. Binary Search Tree Iterator([link](https://leetcode.com/problems/binary-search-tree-iterator/description/?envType=study-plan-v2&envId=top-interview-150))
 
-12. Binary Search Tree Iterator(https://leetcode.com/problems/binary-search-tree-iterator/description/?envType=study-plan-v2&envId=top-interview-150)
+- Input
+  - ["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+  - [[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+- Output
+  - [null, 3, 7, true, 9, true, 15, true, 20, false]
 
-Input
-["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
-[[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
-Output
-[null, 3, 7, true, 9, true, 15, true, 20, false]
-
-Explanation
+- Explanation
 BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
 bSTIterator.next();    // return 3
 bSTIterator.next();    // return 7
@@ -411,7 +420,7 @@ bSTIterator.hasNext(); // return False
 
 
 
-Solution: 
+**Solution:** 
 
 
 
@@ -421,13 +430,12 @@ Solution:
 
 
 
-13. Count Complete Tree Nodes (https://leetcode.com/problems/count-complete-tree-nodes/?envType=study-plan-v2&envId=top-interview-150)
+# 13. Count Complete Tree Nodes ([link](https://leetcode.com/problems/count-complete-tree-nodes/?envType=study-plan-v2&envId=top-interview-150))
+**(NOTE: Design an algorithm that runs in less than O(n) time complexity.)**
 
-(NOTE: Design an algorithm that runs in less than O(n) time complexity.)
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     int countNodes(TreeNode* root) {
@@ -465,13 +473,13 @@ public:
         return cnt;
     }
 };
+```
 
+# 14. Lowest Common Ancestor of a Binary Tree ([link](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/?envType=study-plan-v2&envId=top-interview-150))
 
-14. Lowest Common Ancestor of a Binary Tree (https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -489,13 +497,13 @@ public:
         return rn;
     }
 };
+```
 
+# 15. Binary Tree Right Side View ([link](https://leetcode.com/problems/binary-tree-right-side-view/description/?envType=study-plan-v2&envId=top-interview-150))
 
-15. Binary Tree Right Side View (https://leetcode.com/problems/binary-tree-right-side-view/description/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
@@ -522,14 +530,14 @@ public:
         return result;
     }
 };
+```
 
 
+# 16. Average of Levels in Binary Tree ([link](https://leetcode.com/problems/average-of-levels-in-binary-tree/?envType=study-plan-v2&envId=top-interview-150))
 
-16. Average of Levels in Binary Tree (https://leetcode.com/problems/average-of-levels-in-binary-tree/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     vector<double> averageOfLevels(TreeNode* root) {
@@ -557,13 +565,13 @@ public:
         return res;
     }
 };
+```
 
+# 17. Binary Tree Level Order Traversal ([link](https://leetcode.com/problems/binary-tree-level-order-traversal/?envType=study-plan-v2&envId=top-interview-150))
 
-17. Binary Tree Level Order Traversal (https://leetcode.com/problems/binary-tree-level-order-traversal/?envType=study-plan-v2&envId=top-interview-150)
+**Solution:**
 
-Solution: 
-
-
+```cpp
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
@@ -587,12 +595,14 @@ public:
         return res;
     }
 };
+```
 
-18.  Binary Tree Zigzag Level Order Traversal (https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal?envType=study-plan-v2&envId=top-interview-150)
+# 18.  Binary Tree Zigzag Level Order Traversal ([link](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal?envType=study-plan-v2&envId=top-interview-150))
 
 
-Solution: 
+**Solution:**
 
+```cpp
 class Solution {
 public:
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
@@ -629,24 +639,24 @@ public:
         return res;
     }
 };
+```
 
+# 19. Maximum Level Sum of a Binary Tree
 
-19. Maximum Level Sum of a Binary Tree
-
-Input: root = [1,7,0,7,-8,null,null]
-Output: 2
-Explanation: 
-Level 1 sum = 1.
-Level 2 sum = 7 + 0 = 7.
-Level 3 sum = 7 + -8 = -1.
+- Input: root = [1,7,0,7,-8,null,null]
+- Output: 2
+- Explanation: 
+  - Level 1 sum = 1.
+  - Level 2 sum = 7 + 0 = 7.
+  - Level 3 sum = 7 + -8 = -1.
+    
 So we return the level with the maximum sum which is level 2.
 
 
-Solution: 
+**Solution:**
 
-
+```cpp
 //DFS approach:
-
 class Solution {
 public:
     void solve(TreeNode* root, int level, int &max_level, vector<int>&v){
@@ -677,10 +687,7 @@ public:
     }
 };
 
-
-
 //BFS approach:
-
 class Solution {
 public:
     int solve(TreeNode* root, int& max_level, int& max_sum) {
@@ -717,7 +724,7 @@ public:
         return solve(root, level, max_sum);
     }
 };
-
+```
 
 
 
