@@ -596,6 +596,105 @@ public:
 
 ```
 
+# 15. Candy ([link](https://leetcode.com/problems/candy/description/?envType=study-plan-v2&envId=top-interview-150))
+
+**SOLUTION:**
+
+```cpp
+
+//Brute force O(n) time and O(2*n) space
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        vector<int> left(n, 1);
+        vector<int> right(n, 1);
+        int sum = 0;
+        for(auto i = 1; i < n; i++) {
+            if(ratings[i-1] < ratings[i]) {
+                left[i] = left[i-1] + 1;
+            }
+        }
+
+        for(auto i = n-2; i >= 0; i--) {
+            if(ratings[i+1] < ratings[i]) {
+                right[i] = right[i+1] + 1;
+            }
+        }
+
+        for(auto i = 0; i < n; i++) {
+            sum += max(left[i], right[i]);
+        }
+
+        return sum;
+    }
+};
+
+// Optimised space in O(n) time and O(n) space
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        vector<int> vec(n, 1);
+        int sum = 0;
+        for(auto i = 1; i < n; i++) {
+            if(ratings[i-1] < ratings[i]) {
+                vec[i] = vec[i-1] + 1;
+            }
+        }
+
+        for(auto i = n-2; i >= 0; i--) {
+            if(ratings[i+1] < ratings[i]) {
+                vec[i] = max(vec[i], vec[i+1] + 1);
+            }
+        }
+
+        for(auto i = 0; i < n; i++) {
+            sum += vec[i];
+        }
+
+        return sum;
+    }
+};
+
+
+//More space optimised i.e. in O(n) time and O(1) space
+
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        
+        int count = ratings.size();
+        int n = ratings.size();
+        int i = 1;
+        while(i < n){
+           if(ratings[i-1] == ratings[i]){
+            i++;
+            continue;
+           }
+           int peak = 0;
+           while(i < n && ratings[i-1] < ratings[i]) {
+             peak += 1;
+             count += peak;
+             i++;
+           }
+           int dip = 0;
+           while(i < n && ratings[i-1] > ratings[i]) {
+             dip += 1;
+             count +=dip;
+             i++;
+           }
+           count -= min(peak, dip);
+        }
+        return count;
+    }
+};
+
+
+```
+
 
 
 
