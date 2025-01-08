@@ -84,28 +84,25 @@ Triangle Numbers (https://leetcode.com/problems/valid-triangle-number/descriptio
 
 ```cpp
 
-class Solution : {
+class Solution {
 public:
-    int traiangleNumber(vector<int>& nums) {
+    int triangleNumber(std::vector<int>& nums) {
         int n = nums.size();
-
-        int start = 0, end = n - 1;
         int count = 0;
-        sort(begin(nums), end(nums));
+        sort(nums.begin(), nums.end());
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 2; i < n; i++) { 
+            int start = 0, end = i - 1;
             while (start < end) {
-                if (nums[i] + nums[start] > nums[end]) {
-                    count++;
+                if (nums[start] + nums[end] > nums[i]) {
+                    count += (end - start);
+                    end--;
                 } else {
                     start++;
                 }
-                else {
-                    end–;
-                }
             }
         }
-        return count;
+        return count; 
     }
 };
 ```
