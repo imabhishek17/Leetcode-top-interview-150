@@ -41,7 +41,7 @@ public:
         if (n < 3)
             return res;
 
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end());   // to handle duplicates, as to avoid them (duplicates)
         int start = 0, end = 0;
 
         for (int i = 0; i < n - 2; i++) {
