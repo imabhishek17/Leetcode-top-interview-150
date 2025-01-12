@@ -761,6 +761,80 @@ public:
         return 0;
     }
 };
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Linked List Cycle II (https://leetcode.com/problems/linked-list-cycle-ii/)
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(!head or !head->next) return NULL;
+
+
+        ListNode* fast, *slow, *ptr;
+        fast = head;
+        slow = head;
+        ptr = head;
+
+        while(fast and fast -> next) {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+
+            if(slow == fast) break;
+        }
+
+         if(slow != fast) return NULL;
+
+         while(ptr != slow) {
+            ptr = ptr -> next;
+            slow = slow -> next;
+         }
+
+         return ptr;   //or slow
+    }
+};
+
+
+
+
+slow = l1 + l2
+fast = l1 + l2 + nk
+fast = 2(l1 + l2)
+nk = (l1 + l2), where n is number of cycles, and k is length of cycle
+l1 = nk - l2
+
+
+
+
+So, basically, cycle Detection Intuition:
+slow = l1 + l2
+(slow travels l1 to reach the cycle start, then l2 inside the cycle)
+
+fast = l1 + l2 + nk
+(fast travels l1 to reach the cycle, l2 inside the cycle, and nk for complete cycles)
+
+fast = 2 * (l1 + l2)
+(since fast moves twice as fast, it travels twice the distance of slow before meeting)
+
+nk = (l1 + l2)
+(the extra distance nk that fast covers is the total of l1 + l2)
+
+l1 = nk - l2
+(the distance l1 from the head to the cycle's entry is nk - l2)
+
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
