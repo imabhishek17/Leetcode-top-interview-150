@@ -327,6 +327,12 @@ Insert Interval (https://leetcode.com/problems/insert-interval/description/)
 
 ```cpp
 
+/*
+    Given array of non-overlapping intervals & a new interval, insert & merge if necessary
+    Ex. intervals = [[1,3],[6,9]], newInterval = [2,5] -> [[1,5],[6,9]]
+
+*/
+
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
@@ -358,12 +364,64 @@ public:
       	return res;
     }
 };
+
+OR
+
+/*
+
+ To merge: while intervals are still overlapping the new one, take the larger bounds
+
+    Time: O(n)
+    Space: O(n)
+*/
+
+
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> ans;
+        int newStart = newInterval[0];
+        int newEnd = newInterval[1];
+        int n = intervals.size();
+        for (int i = 0; i < n; i++) {
+            // Case 1: Non overlapping interval
+            // If new interval is before the current interval
+            if (intervals[i][0] > newEnd) {
+                ans.push_back(newInterval);
+                copy(intervals.begin() + i, intervals.end(), back_inserter(ans));
+                return ans;
+            }
+            // If new interval is after the current interval
+            else if (intervals[i][1] < newStart) {
+                ans.push_back(intervals[i]);
+            }
+            // Case 2: Overlapping interval
+            else {
+                newInterval[0] = min(newInterval[0], intervals[i][0]);
+                newInterval[1] = max(newInterval[1], intervals[i][1]);
+            }
+        }
+        ans.push_back(newInterval);
+        return ans;
+    }
+};
+
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
 Non-overlapping Intervals (https://leetcode.com/problems/non-overlapping-intervals/description/)
 
 ```cpp
+   
+/*
+    Given array of intervals, return min # of intervals to remove for all non-overlapping
+    Ex. intervals = [[1,2],[1,3],[2,3],[3,4]] -> 1, remove [1,3] for all non-overlapping
+
+    Remove interval w/ longer end point, since will always overlap more or = vs shorter one
+
+    Time: O(n log n)
+    Space: O(1)
+*/
 
 class Solution {
 public:
@@ -374,31 +432,19 @@ public:
             return count;
 
         sort(intervals.begin(), intervals.end());
-
-        vector<int> newInterval;
-        newInterval = intervals[0];
-
-        for (int start = 1; start < len; start++) {
-            int current_start = intervals[start][0];
-            int current_end = intervals[start][1];
-            int last_end = newInterval[1];
-
-            if (last_end <= current_start) { // safe check i.e. non-overlapping
-                newInterval = intervals[start];
-            } else if (current_end <
-                       last_end) { // overlapping- delete one with bigger end
-                                   // time because in between other given
-                                   // potentials intervals can cover/overlap
-                newInterval = intervals[start];
+        int prevEnd = intervals[0][1];
+        for (int i = 1; i < intervals.size(); i++) {
+            if (prevEnd > intervals[i][0]) {
                 count++;
-            } else if (current_end >=
-                       last_end) { // overlapping- same as above else condition
-                count++;
+                prevEnd = min(prevEnd, intervals[i][1]);
+            } else {
+                prevEnd = intervals[i][1];
             }
         }
         return count;
     }
 };
+
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
