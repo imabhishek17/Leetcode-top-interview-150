@@ -827,7 +827,7 @@ fast = l1 + l2 + nk
 (fast travels l1 to reach the cycle, l2 inside the cycle, and nk for complete cycles)
 
 fast = 2 * (l1 + l2)
-(since fast moves twice as fast, it travels twice the distance of slow before meeting)
+(since fast moves twice as slow, it travels twice the distance of slow before meeting)
 
 nk = (l1 + l2)
 (the extra distance nk that fast covers is the total of l1 + l2)
