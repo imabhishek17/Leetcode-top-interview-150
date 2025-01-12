@@ -387,10 +387,7 @@ public:
         }
 
         /*
-    The problem statement mentions that the intervals vector is sorted. 
-    Therefore, there's no need to sort it (that's why comment the below sort function). 
-    If the problem did not specify that the intervals are sorted, 
-    then we would need to sort the intervals before proceeding with the merge.
+    Since the problem states that the intervals are sorted, there's no need to sort them again; otherwise, we would have to sort the intervals before merging.
         */
         // sort(intervals.begin(), intervals.end());  
         
@@ -399,7 +396,6 @@ public:
         int end = newInterval[1];
         for (int i = 0; i < n; i++) {
             if (intervals[i][0] <= end and intervals[i][1] >= start) {  // Since we are not sorting the intervals while insertion, we need to check both the start and end values for overlap.
-
                 start = min(start, intervals[i][0]);
                 end = max(end, intervals[i][1]);
             } else if (intervals[i][0] > end) {
