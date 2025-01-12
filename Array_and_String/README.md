@@ -262,6 +262,8 @@ Can Attend Meetings OR Meeting Rooms I (https://leetcode.com/problems/meeting-ro
 
 ```cpp
 
+//Problem statement: Write a function to check if a person can attend all the meetings scheduled without any time conflicts. Given an array intervals, where each element [s1, e1] represents a meeting starting at time s1 and ending at time e1, determine if there are any overlapping meetings. If there is no overlap between any meetings, return true; otherwise, return false.
+
 class Solution {
 public:
     bool canAttendMeetings(vector<vector<int>>& intervals) {
