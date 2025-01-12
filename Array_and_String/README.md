@@ -398,7 +398,8 @@ public:
         int start = newInterval[0];
         int end = newInterval[1];
         for (int i = 0; i < n; i++) {
-            if (intervals[i][0] <= end && intervals[i][1] >= start) {
+            if (intervals[i][0] <= end and intervals[i][1] >= start) {  // Since we are not sorting the intervals while insertion, we need to check both the start and end values for overlap.
+
                 start = min(start, intervals[i][0]);
                 end = max(end, intervals[i][1]);
             } else if (intervals[i][0] > end) {
