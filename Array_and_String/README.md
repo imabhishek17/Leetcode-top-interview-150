@@ -498,34 +498,39 @@ Input: schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]]
 Output: [[3,4]]
 
 ```cpp
+
+// Problem statement: Write a function to find the common free time for all employees from a list called schedule. Each employee's schedule is represented by a list of non-overlapping intervals sorted by start times. The function should return a list of finite, non-zero length intervals where all employees are free, also sorted in order.
+
+
+
 class Solution {
 public:
-    vector<Interval> employeeFreeTime(vector<vector<Interval>> A) {
+    vector<Interval> employeeFreeTime(vector<vector<Interval>>& schedule) {
         map<int, int> m;
-        for (auto &v : A) {
-            for (auto &it : v) {
-                m[it.start]++;
-                m[it.end]--;
+        for (auto &s : schedule) {
+            for (auto &i : s) {
+                m[i.start]++;
+                m[i.end]--;
             }
         }
-        vector<Interval> ans;
-        int cnt = 0;
-        for (auto it = m.begin(); it != m.end(); ++it) {
-            cnt += it->second;
-            if (cnt) continue;
-            int start = it->first;
-            ++it;
-            if (it == m.end()) break;
-            cnt += it->second;
-            ans.emplace_back(start, it->first);
+        
+        vector<Interval> res;
+        int cnt = 0, start = 0;
+        for (auto &p : m) {
+            cnt += p.second;
+            if (cnt == 0 && start != 0) {
+                res.push_back({start, p.first});
+            } else if (cnt != 0 && start == 0) {
+                start = p.first;
+            }
         }
-        return ans;
+        
+        return res;
     }
 };
 
 // Time: O(NlogT + T) where N is the total number of intervals, and T is the total number of unique times.
 // Space: O(T)
-
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
