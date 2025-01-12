@@ -531,6 +531,45 @@ public:
 
 // Time: O(NlogT + T) where N is the total number of intervals, and T is the total number of unique times.
 // Space: O(T)
+
+
+
+OR
+
+
+class Solution {
+public:
+    vector<vector<int>> employeeFreeTime(vector<vector<int>>& schedule) {
+        vector<vector<int>> allIntervals;
+
+        // Flatten the schedule into a single list of intervals
+        for (int i = 0; i < schedule.size(); i++) {
+            for (int j = 0; j < schedule[i].size(); j++) {
+                allIntervals.push_back(schedule[i][j]);
+            }
+        }
+
+        // Sort all intervals by their start time
+        sort(allIntervals.begin(), allIntervals.end());
+
+        vector<vector<int>> freeTimes;
+        int currentEnd = allIntervals[0][1];  // Initialize with the end of the first interval
+
+        // Loop through all intervals
+        for (int i = 1; i < allIntervals.size(); i++) {
+            // If there's a gap between the current interval and the previous one
+            if (allIntervals[i][0] > currentEnd) {
+                // Record the free time
+                freeTimes.push_back({currentEnd, allIntervals[i][0]});
+            }
+
+            // Update the current end time
+            currentEnd = max(currentEnd, allIntervals[i][1]);
+        }
+
+        return freeTimes;
+    }
+};
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
