@@ -835,6 +835,10 @@ nk = (l1 + l2)
 l1 = nk - l2
 (the distance l1 from the head to the cycle's entry is nk - l2)
 
+
+<img width="972" alt="image" src="https://github.com/user-attachments/assets/11fb31c6-ca09-41a0-b86f-618b29b4e2f5" />
+
+
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
