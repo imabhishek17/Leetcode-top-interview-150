@@ -368,41 +368,53 @@ public:
 OR
 
 /*
-
- To merge: while intervals are still overlapping the new one, take the larger bounds
-
     Time: O(n)
     Space: O(n)
 */
-
-
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        vector<vector<int>> ans;
-        int newStart = newInterval[0];
-        int newEnd = newInterval[1];
+        vector<vector<int>> res;
         int n = intervals.size();
+
+        // Add all intervals that come before the new interval
         for (int i = 0; i < n; i++) {
-            // Case 1: Non overlapping interval
-            // If new interval is before the current interval
-            if (intervals[i][0] > newEnd) {
-                ans.push_back(newInterval);
-                copy(intervals.begin() + i, intervals.end(), back_inserter(ans));
-                return ans;
-            }
-            // If new interval is after the current interval
-            else if (intervals[i][1] < newStart) {
-                ans.push_back(intervals[i]);
-            }
-            // Case 2: Overlapping interval
-            else {
-                newInterval[0] = min(newInterval[0], intervals[i][0]);
-                newInterval[1] = max(newInterval[1], intervals[i][1]);
+            if (intervals[i][1] < newInterval[0]) {
+                res.push_back(intervals[i]);
+            } else {
+                break;
             }
         }
-        ans.push_back(newInterval);
-        return ans;
+
+        /*
+    The problem statement mentions that the intervals vector is sorted. 
+    Therefore, there's no need to sort it (that's why comment the below sort function). 
+    If the problem did not specify that the intervals are sorted, 
+    then we would need to sort the intervals before proceeding with the merge.
+        */
+        // sort(intervals.begin(), intervals.end());  
+        
+        // Merge the new interval with the overlapping intervals
+        int start = newInterval[0];
+        int end = newInterval[1];
+        for (int i = 0; i < n; i++) {
+            if (intervals[i][0] <= end && intervals[i][1] >= start) {
+                start = min(start, intervals[i][0]);
+                end = max(end, intervals[i][1]);
+            } else if (intervals[i][0] > end) {
+                break;
+            }
+        }
+        res.push_back({start, end});
+        
+        // Add all remaining intervals
+        for (int i = 0; i < n; i++) {
+            if (intervals[i][0] > end) {
+                res.push_back(intervals[i]);
+            }
+        }
+        
+        return res;
     }
 };
 
