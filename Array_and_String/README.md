@@ -1361,8 +1361,11 @@ Maximum Depth of a Binary Tree (https://leetcode.com/problems/maximum-depth-of-b
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if (root == nullptr)
+        if (!root)
             return 0;
+
+        if(!root->left and !root->right)
+            return 1; 
 
         int h1 = maxDepth(root->left);
         int h2 = maxDepth(root->right);
@@ -1409,6 +1412,7 @@ public:
     bool hasPathSum(TreeNode* root, int targetSum) {
         if (!root)
             return 0;
+
         if (!root->left and !root->right)
             return (root->val == targetSum);
 
