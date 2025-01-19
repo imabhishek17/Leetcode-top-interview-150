@@ -301,6 +301,53 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Maximum Points You Can Obtain from Cards (https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/description/)
+
+Input: cardPoints = [1,2,3,4,5,6,1], k = 3
+Output: 12
+
+```cpp
+
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int n = cardPoints.size(), res = 0;
+        for(int i = 0; i < k; i++) {
+            res += cardPoints[i];
+        }
+
+        int curr = res;
+
+        for(int i = (k-1); i >=0; i--) {
+            curr -= cardPoints[i];
+            curr += cardPoints[n - k + i]; // or cardPoints[(n - 1) - (k-1) + i]
+
+            res = max(res, curr); 
+        }
+
+        return res;
+    }
+};
+
+
+/*
+(n-1) - 0
+(n-1) - ((k-1) - i)
+(k-1) - i = 0
+i = (k-1)
+
+Also, 
+(n - 1) - (k-1) + i
+=> n - 1 - k + 1 + i 
+=> n - k + i
+
+So, (n - 1) - (k-1) + i = n - k + i
+*/
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
 Can Attend Meetings OR Meeting Rooms I (https://leetcode.com/problems/meeting-rooms/description/)
 
 ```cpp
