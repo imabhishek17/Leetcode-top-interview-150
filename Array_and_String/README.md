@@ -258,6 +258,70 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Longest Subarray with Sum K (with +ve elements are present)(https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1)
+
+Input: nums = 10 5 2 7 1 10, k = 15
+Output: 4
+
+```cpp
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int k) {
+        int left = 0, right = 0, res = 0;
+        long long sum = 0;
+        int n = nums.size();
+
+        while (right < n) {
+            sum += nums[right];
+
+            if (sum == k) {
+                res = max(res, right - left + 1);
+            } else if (sum > k) {
+                while (sum > k and left <= right) {
+                    sum -= nums[left];
+                    left++;
+
+                    if (sum == k) {
+                        res = max(res, right - left + 1);
+                    }
+                }
+            }
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Longest Subarray with Sum K (with +ve and -ve elements both are present)(https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1)
+
+Input: arr[] = [10, 5, 2, 7, 1, -10], k = 15
+Output: 6
+Explanation: Subarrays with sum = 15 are [5, 2, 7, 1], [10, 5] and [10, 5, 2, 7, 1, -10]. The length of the longest subarray with a sum of 15 is 6.
+
+```cpp
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
 Maximum Sum of Distinct Subarrays With Length K (https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/description/)
 
 Input: nums = [1,5,4,2,9,9,9], k = 3
