@@ -308,14 +308,31 @@ Explanation: Subarrays with sum = 15 are [5, 2, 7, 1], [10, 5] and [10, 5, 2, 7,
 ```cpp
 
 
+class Solution {
+  public:
+    int longestSubarray(vector<int>& nums, int k) {
+      long long sum = 0;
+      int res = 0;
+      int n = nums.size();
+      
+      unordered_map<int, int> mp;
 
-
-
-
-
-
-
-
+      for(int i = 0; i < n; i++) {
+          sum += nums[i];
+          
+          if(sum == k) res = i + 1;
+          
+          if(mp.find(sum) == mp.end()) {
+              mp[sum] = i;
+          }
+          
+          if(mp.find(sum - k) != mp.end()) {
+              res = max(res, i - mp[sum - k]);
+          }
+      }
+      return res;
+  }
+};
 
 
 ```
