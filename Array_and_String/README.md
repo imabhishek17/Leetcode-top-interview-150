@@ -258,6 +258,49 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Maximum Sum of Distinct Subarrays With Length K (https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/description/)
+
+Input: nums = [1,5,4,2,9,9,9], k = 3
+Output: 15
+
+```cpp
+
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+
+        long long left = 0, right = 0, sum = 0, res = 0;
+
+        while(right < nums.size()) {
+            sum += nums[right];                 // calculation
+            mp[nums[right]]++;
+
+            while(mp[nums[right]] > 1) {
+                sum -= nums[left];
+                mp[nums[left]]--;
+                left++;
+            }
+
+            if(right - left + 1 == k) {
+                res = max(res, sum);        // result  from calculation
+                sum -= nums[left];          //slide the window
+                mp[nums[left]]--;
+                left++;
+            }
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
 Can Attend Meetings OR Meeting Rooms I (https://leetcode.com/problems/meeting-rooms/description/)
 
 ```cpp
