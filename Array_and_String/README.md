@@ -524,6 +524,400 @@ So, (n - 1) - (k-1) + i = n - k + i
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Subarrays with K Different Integers (https://leetcode.com/problems/subarrays-with-k-different-integers/description/)
+
+Input: nums = [1,2,1,2,3], k = 2
+Output: 7
+Explanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,1,2]
+
+```cpp
+
+class Solution {
+public:
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return solve(nums, k) - solve(nums, k-1);
+    }
+
+    int solve(vector<int>& nums, int k) {
+        int n = nums.size();
+        int right = 0, left = 0, res = 0;
+
+        unordered_map<int, int>mp;
+
+        while(right < n) {
+            mp[nums[right]]++;
+
+            if(mp.size() > k and left <= right) {
+                while(mp.size() > k) {
+                    mp[nums[left]]--;
+                    if(mp[nums[left]] == 0) {
+                        mp.erase(nums[left]);
+                    }
+                    left++;
+                }
+            }
+            res += right - left + 1;
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+Number of Substrings Containing All Three Characters (https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/)
+
+Input: s = "abcabc"
+Output: 10
+Explanation: The substrings containing at least one occurrence of the characters a, b and c are "abc", "abca", "abcab", "abcabc", "bca", "bcab", "bcabc", "cab", "cabc" and "abc" (again). 
+
+```cpp
+
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        vector<int> vec(3, -1);
+        int n = s.size(); 
+        int count = 0;
+
+        for(int i = 0; i < n; i++) {
+            vec[s[i] - 'a'] = i;
+            // if(vec[0] != -1 and vec[1] != -1 and vec[2] != -1)
+            count += (1 + min({vec[0], vec[1], vec[2]}));
+        }
+        return count;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Subarray Product Less Than K (https://leetcode.com/problems/subarray-product-less-than-k/description/)
+
+Input: nums = [10,5,2,6], k = 100
+Output: 8
+Explanation: The 8 subarrays that have product less than 100 are:
+[10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6]
+Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k.
+
+```cpp
+
+class Solution {
+public:
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        int left = 0, right = 0, n = nums.size();
+        int count = 0, product = 1;
+
+        while(right < n) {
+            product *= nums[right];
+
+            while(left <= right and product >= k) {
+                product /= nums[left];
+                left++;
+            }
+
+            count += (right - left + 1);
+            right++;
+        }
+
+        return count;
+    }
+};
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Repeated DNA Sequences (https://leetcode.com/problems/repeated-dna-sequences/description/)
+
+Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+Output: ["AAAAACCCCC","CCCCCAAAAA"]
+
+Input: s = "AAAAAAAAAAAAA"
+Output: ["AAAAAAAAAA"]
+
+
+```cpp
+
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> res;
+        if(s.size() < 10) return res;
+
+        unordered_map<string, int> mp;
+
+        for(int i = 0; i < s.size() - 9; i++) {
+            string temp = s.substr(i, 10);
+            mp[temp]++;
+        }
+
+        for(auto& it : mp) {
+            if(it.second > 1) {
+                res.push_back(it.first);
+            }
+        }
+
+        return res;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Permutation in String (https://leetcode.com/problems/permutation-in-string/description/)
+
+
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
+
+
+```cpp
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int left = 0, right = 0, n = s2.size();
+        bool res = 0;
+
+        unordered_map<char, int>mp1, mp2;
+        for(auto &it: s1) {
+            mp1[it - 'a']++;
+        }
+
+        while(right < n) {
+            mp2[s2[right] - 'a']++;
+
+            if((right - left + 1) == s1.size()) {
+                if(mp1 == mp2) {
+                    res = 1;
+                    return res;
+                };
+            } else if(right - left + 1 > s1.size()) {
+                mp2[s2[left] - 'a']--;
+                if(mp2[s2[left] - 'a'] == 0) {
+                    mp2.erase(s2[left] - 'a');
+                }
+                left++;
+                if(mp1 == mp2) {
+                    res = 1;
+                    return res;
+                };
+            }
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+
+
+//EFFICIENT CODE:
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int left = 0, right = 0, n = s2.size();
+        bool res = 0;
+
+        unordered_map<char, int>mp1, mp2;
+        for(auto &it: s1) {
+            mp1[it - 'a']++;
+        }
+
+        while(right < n) {
+            mp2[s2[right] - 'a']++;
+
+            if(right - left + 1 > s1.size()) {
+                mp2[s2[left] - 'a']--;
+                if(mp2[s2[left] - 'a'] == 0) {
+                    mp2.erase(s2[left] - 'a');
+                }
+                left++;
+            }
+            if(mp1 == mp2) {
+                res = 1;
+                return res;
+            };
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+
+
+// using character array of constant size
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int left = 0, right = 0, n = s2.size();
+
+        int len1 = s1.size();
+        int len2 = s2.size();
+        vector<int> v1(26, 0);
+        vector<int> v2(26, 0);
+
+        for(int i = 0; i < len1; i++) {
+            v1[s1[i] - 'a']++;
+        }
+
+        while(right < n) {
+            v2[s2[right] - 'a']++;
+
+            if(right - left + 1 < s1.size()) {
+            } else if(left <= right and (right - left + 1) == s1.size()) {
+                if(v1 == v2) {
+                    return true;
+                };
+            } else if(left <= right and right - left + 1 > s1.size()) {
+                v2[s2[left] - 'a']--;
+                left++;
+                if(v1 == v2) {
+                    return true;
+                };
+            }
+            right++;
+        }
+
+        return false;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Find the Power of K-Size Subarrays I (https://leetcode.com/problems/find-the-power-of-k-size-subarrays-i/description/)
+
+
+Input: nums = [1,2,3,4,3,2,5], k = 3
+Output: [3,4,-1,-1,-1]
+
+Explanation:
+There are 5 subarrays of nums of size 3:
+[1, 2, 3] with the maximum element 3.
+[2, 3, 4] with the maximum element 4.
+[3, 4, 3] whose elements are not consecutive.
+[4, 3, 2] whose elements are not sorted.
+[3, 2, 5] whose elements are not consecutive.
+
+
+```cpp
+
+//through Aditya template
+class Solution {
+public:
+    vector<int> resultsArray(vector<int>& nums, int k) {
+        int count = 1;
+
+        int left = 0, right = 0, n = nums.size();
+        vector<int> res;
+
+        while (right < n) {
+            if (right > 0 and nums[right - 1] + 1 == nums[right]) {
+                count++;
+            }
+
+            if (right - left + 1 == k) {
+                res.push_back((count == k) ? nums[right] : -1);
+            } else if (right - left + 1 > k) {
+                if (nums[left] + 1 == nums[left + 1]) {
+                    count--;
+                }
+                left++;
+                if (right - left + 1 == k) {
+                    res.push_back((count == k) ? nums[right] : -1);
+                }
+            }
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+
+//Efficient way
+class Solution {
+public:
+    vector<int> resultsArray(vector<int>& nums, int k) {
+        int count = 1;
+
+        int left = 0, right = 0, n = nums.size();
+        vector<int> res;
+
+        while(right < n) {
+            if(right > 0 and nums[right - 1] + 1 == nums[right]) {
+                count++;
+            }
+
+            if (right - left + 1 > k) {
+                if(nums[left] + 1 == nums[left + 1]) {
+                        count--;
+                }
+                left++;
+            }
+
+            if(right - left + 1 == k) {
+                res.push_back((count == k) ? nums[right] : -1);
+            }
+
+            right++;
+        }
+
+        return res;
+    }
+};
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Count Substrings Starting and Ending with Given Character (https://leetcode.com/problems/count-substrings-starting-and-ending-with-given-character/description/)
+
+Input: s = "abada", c = "a"
+Output: 6
+Explanation: Substrings starting and ending with "a" are: "abada", "abada", "abada", "abada", "abada", "abada".
+
+
+
+```cpp
+
+class Solution {
+public:
+    long long countSubstrings(string s, char c) {
+        long long count = 0;
+        for(int i = 0; i < s.size(); i++) {
+            count += (s[i] == c);
+        }
+
+        return (count * (count + 1)) >> 1;
+    }
+};
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
 Can Attend Meetings OR Meeting Rooms I (https://leetcode.com/problems/meeting-rooms/description/)
 
 ```cpp
