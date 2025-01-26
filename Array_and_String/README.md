@@ -258,6 +258,101 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Longest Substring Without Repeating Characters (https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+
+```cpp
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+
+        int right = 0, left = 0, res = 0;
+
+        unordered_map<char, int>mp;
+
+        while(right < n) {
+            mp[s[right]]++;
+
+            if(mp.size() < (right - left + 1)){
+                while(mp.size() < (right - left + 1) and left <= right) {
+                    mp[s[left]]--;
+                    if(mp[s[left]] == 0) {
+                        mp.erase(s[left]);
+                    }
+                    left++;
+                }
+                if(mp.size() == right - left + 1) {
+                    res = max(res, right - left + 1);
+                }
+            } else if(mp.size() == right - left + 1) {
+                res = max(res, right - left + 1);
+            }
+            right++;
+        }
+        return res;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Longest Repeating Character Replacement (https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+
+Input: s = "AABABBA", k = 1
+Output: 4
+
+```cpp
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        unordered_map<char, int> mp;
+
+        int n = s.size();
+        int left = 0, right = 0;
+
+        int mx = 0, len = 0, maxWindow = 0;
+
+        while(right < n) {
+            mp[s[right]]++;
+
+            mx = max(mx, mp[s[right]]);
+            len = right - left + 1;
+
+            while(left <= right and len - mx > k) {
+                mp[s[left]]--;
+                left++;
+                len = right - left + 1;
+            }
+            
+            maxWindow = max(maxWindow, len);
+            right++;
+        }
+
+        return maxWindow;
+    }
+};
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
 Longest Subarray with Sum K (with +ve elements are present)(https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1)
 
 Input: nums = 10 5 2 7 1 10, k = 15
