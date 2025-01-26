@@ -434,6 +434,48 @@ class Solution {
 
 ------------------------------------------------------------------------------------------------------------------------
 
+
+Maximum Sum of Subarrays of Size K (https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1)
+
+
+Input: arr[] = [100, 200, 300, 400] , k = 2
+Output: 700
+
+
+```cpp
+
+
+class Solution {
+  public:
+    int maximumSumSubarray(vector<int>& nums, int k) {
+        int left = 0, right = 0;
+        int n = nums.size();
+        int mx = 0;
+        int sum = 0;
+        
+        while(right < n) {
+            sum += nums[right];
+            
+            if(right - left + 1 == k) {
+                mx = max(mx, sum);
+                sum -= nums[left];
+                left++;   
+            }
+            
+            right++;
+        }
+        
+        return mx;
+    }
+};
+
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
 Maximum Sum of Distinct Subarrays With Length K (https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/description/)
 
 Input: nums = [1,5,4,2,9,9,9], k = 3
