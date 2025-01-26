@@ -4277,6 +4277,182 @@ public:
 };
 
 ```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Combination Sum II (https://leetcode.com/problems/combination-sum-ii/description/)
+
+
+Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+
+Input: candidates = [2,5,2,1,2], target = 5
+Output: 
+[
+[1,2,2],
+[5]
+]
+ 
+
+```cpp
+
+class Solution {
+public:
+
+    void solve(int start, int end, vector<int>& candidates, int target, int sum, vector<vector<int>>& res, vector<int>& curr) {
+        if(sum == target) {
+            res.push_back(curr);
+            return;
+        }
+
+        if(target < sum or start > end) return;
+
+        curr.push_back(candidates[start]);
+        sum += candidates[start];
+        solve(start + 1, end, candidates, target, sum, res, curr); 
+
+        curr.pop_back();
+        sum -= candidates[start];
+
+        while(start + 1 <= end and candidates[start] == candidates[start + 1]) start++;
+        solve(start + 1, end, candidates, target, sum, res, curr);
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        int n = candidates.size();
+        vector<vector<int>> res;
+        vector<int> curr;
+        int sum = 0;
+        sort(candidates.begin(), candidates.end());
+        solve(0, n-1, candidates, target, sum, res, curr);
+        return res;
+    }
+};
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Combination Sum III (https://leetcode.com/problems/combination-sum-iii/description/)
+
+
+Input: k = 3, n = 7
+Output: [[1,2,4]]
+Explanation:
+1 + 2 + 4 = 7
+There are no other valid combinations.
+
+Input: k = 3, n = 9
+Output: [[1,2,6],[1,3,5],[2,3,4]]
+Explanation:
+1 + 2 + 6 = 9
+1 + 3 + 5 = 9
+2 + 3 + 4 = 9
+There are no other valid combinations.
+
+ 
+
+```cpp
+
+class Solution {
+public:
+
+    void solve(int start, int end, vector<int>& candidates, int target, int sum, vector<vector<int>>& res, vector<int>& curr, int k) {
+        if(sum == target and curr.size() == k) {
+            res.push_back(curr);
+            return;
+        }
+
+        if(target < sum or start > end) return;
+
+        curr.push_back(candidates[start]);
+        sum += candidates[start];
+        solve(start + 1, end, candidates, target, sum, res, curr, k); 
+
+        curr.pop_back();
+        sum -= candidates[start];
+
+        while(start + 1 <= end and candidates[start] == candidates[start + 1]) start++;
+        solve(start + 1, end, candidates, target, sum, res, curr, k);
+    }
+
+    vector<vector<int>> combinationSum3(int k, int target) {
+        vector<int>candidates;
+        for(int i = 0; i < 9; i++){
+            candidates.push_back(i + 1);
+        }
+        vector<vector<int>> res;
+        vector<int> curr;
+        int sum = 0;
+        sort(candidates.begin(), candidates.end());
+        solve(0, 8, candidates, target, sum, res, curr, k);
+        return res;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Combinations (https://leetcode.com/problems/combinations/description/)
+
+
+Input: n = 4, k = 2
+Output: [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+Explanation: There are 4 choose 2 = 6 total combinations.
+Note that combinations are unordered, i.e., [1,2] and [2,1] are considered to be the same combination.
+
+Input: n = 1, k = 1
+Output: [[1]]
+
+
+```cpp
+
+class Solution {
+public:
+
+    void solve(int start, int end, vector<int>& nums, int k, vector<int>& curr, vector<vector<int>> &res) {
+        if(curr.size() == k) {
+            res.push_back(curr);
+            return;
+        }
+    
+        if(start <= end) {
+            curr.push_back(nums[start]);
+            solve(start + 1, end, nums, k, curr, res);
+            curr.pop_back();
+
+            solve(start + 1, end, nums, k, curr, res);
+        }
+    }
+
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> nums;
+        vector<vector<int>> res;
+        vector<int> curr;
+        for(int i = 0; i < n; i++) {
+            nums.push_back(i + 1);
+        }        
+        solve(0, n - 1, nums, k, curr, res);
+
+        return res;
+    }
+};
+
+
+// 0------4    6
+
+```
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 
 Partitions with Given Difference (https://www.geeksforgeeks.org/problems/partitions-with-given-difference/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card)
