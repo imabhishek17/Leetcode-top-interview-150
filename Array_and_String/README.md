@@ -283,7 +283,7 @@ public:
             mp[s[right]]++;
 
             if(mp.size() < (right - left + 1)){
-                while(mp.size() < (right - left + 1) and left <= right) {
+                while(mp.size() < (right - left + 1)) {
                     mp[s[left]]--;
                     if(mp[s[left]] == 0) {
                         mp.erase(s[left]);
