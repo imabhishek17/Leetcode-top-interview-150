@@ -306,7 +306,7 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
-Longest Repeating Character Replacement (https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+Longest Repeating Character Replacement (https://leetcode.com/problems/longest-repeating-character-replacement/description/)
 
 Input: s = "ABAB", k = 2
 Output: 4
