@@ -302,6 +302,36 @@ public:
     }
 };
 
+
+BELOW IS CLEAENER VERSION OF ABOVE CODE:
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+
+        int right = 0, left = 0, res = 0;
+
+        unordered_map<char, int>mp;
+
+        while(right < n) {
+            mp[s[right]]++;
+
+            while(mp.size() < (right - left + 1)) {
+                mp[s[left]]--;
+                if(mp[s[left]] == 0) {
+                    mp.erase(s[left]);
+                }
+                left++;
+            }
+    
+            res = max(res, right - left + 1);
+            right++;
+        }
+        return res;
+    }
+};
+
+
 ```
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -320,29 +350,67 @@ Output: 4
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-        unordered_map<char, int> mp;
-
-        int n = s.size();
         int left = 0, right = 0;
+        int mx = 0, maxWindow = 0;
+        int n = s.size();
 
-        int mx = 0, len = 0, maxWindow = 0;
+        int res = 0;
+
+        unordered_map<char, int> m;
+
+        while (right < n) {
+            m[s[right]]++;
+
+            mx = max(mx, m[s[right]]);
+            int len = right - left + 1;
+
+            if (len - mx > k) {
+                while (len - mx > k) {
+                    m[s[left]]--;
+                    left++;
+                    len = right - left + 1;
+                }
+                if (len - mx <= k) {
+                    maxWindow = max(maxWindow, len);
+                }
+            } else if (len - mx <= k) {
+                maxWindow = max(maxWindow, len);
+            }
+
+            right++;
+        }
+        return maxWindow;
+    }
+};
+
+
+BELOW IS CLEAENER VERSION OF ABOVE CODE:
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int left = 0, right = 0;
+        int mx = 0, maxWindow = 0;
+        int n = s.size();
+
+        int res = 0;
+
+        unordered_map<char, int> m;
 
         while(right < n) {
-            mp[s[right]]++;
+            m[s[right]]++;
 
-            mx = max(mx, mp[s[right]]);
-            len = right - left + 1;
+            mx = max(mx, m[s[right]]);
+            int len = right - left + 1;
 
-            while(left <= right and len - mx > k) {
-                mp[s[left]]--;
+            while(len - mx > k) {
+                m[s[left]]--;
                 left++;
                 len = right - left + 1;
             }
-            
+
             maxWindow = max(maxWindow, len);
             right++;
         }
-
         return maxWindow;
     }
 };
