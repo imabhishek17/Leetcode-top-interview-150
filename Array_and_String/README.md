@@ -1507,6 +1507,71 @@ public:
     // S: O(N)
 
 ```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Daily Temperatures (https://leetcode.com/problems/daily-temperatures/)
+
+```cpp
+
+// brute solution
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size();
+        vector<int> res(n, 0);
+
+        for(int i = 0; i < n; i++) {
+            for(int j = i; j < n; j++) {
+                if(temperatures[i] < temperatures[j]) {
+                    res[i] = abs(i - j);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+
+//efficient code
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size();
+        vector<int> res(n, 0);
+
+        stack<int> st;
+
+        for(int curr = n-1; curr >= 0; curr--) {
+            while(!st.empty() and temperatures[curr] >= temperatures[st.top()]) {
+                st.pop();
+            }
+
+            if(st.empty()) {
+                res[curr] = 0;
+            } else {
+                res[curr] = abs(curr - st.top());
+            }
+
+            st.push(curr);
+        }
+        return res;
+    }
+};
+
+
+
+/* 
+Time complexity: O(2 * n) ~ O(n).
+Explanation: Each temperature index is pushed and popped from the stack at most once (2 opereations at most), leading to linear time complexity.
+ */
+
+```
+
+
+
 ------------------------------------------------------------------------------------------------------------------------
 
 Linked List Cycle (https://leetcode.com/problems/linked-list-cycle/description/)
