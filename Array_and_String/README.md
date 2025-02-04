@@ -4154,6 +4154,72 @@ public:
 //https://leetcode.com/problems/01-matrix/solutions/3617748/why-2-pass-dp-works-using-pictorial-explanation/
 
 ```
+
+------------------------------------------------------------------------------------------------------------------------
+
+ Word Search (https://leetcode.com/problems/word-search/description/)
+
+Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+Output: true
+
+
+```cpp
+
+class Solution {
+public:
+    bool isSafe(int currRow, int currCol, int row, int col) {
+        int checkRow = currRow >= 0 and currRow < row;
+        int checkCol = currCol >= 0 and currCol < col;
+
+        return checkRow and checkCol;
+    }
+
+    void dfs(int currRow, int currCol, int row, int col, vector<vector<char>>& board, string& word, bool& isExist, int idx, vector<vector<int>>& direc) {
+        if(idx >= word.size()) {
+            isExist = true;
+            return;
+        }
+
+        if(!isSafe(currRow, currCol, row, col) or board[currRow][currCol] == '$' or board[currRow][currCol] != word[idx]) return;
+
+        char temp = board[currRow][currCol];
+        board[currRow][currCol] = '$';
+
+        for(int dir = 0; dir < 4; dir++) {
+            int newRow = currRow + direc[dir][0];
+            int newCol = currCol + direc[dir][1];
+
+            dfs(newRow, newCol, row, col, board, word, isExist, idx + 1, direc);
+        }
+
+        board[currRow][currCol] = temp;
+    }   
+
+    bool exist(vector<vector<char>>& board, string word) {        
+        int row = board.size();
+        int col = board[0].size();
+
+        vector<vector<int>> direc = {
+            {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+        };
+
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                if(board[i][j] == word[0]) {
+                    bool isExist = false;
+                    dfs(i, j, row, col, board, word, isExist, 0, direc);
+                    if(isExist) return true;
+                }
+            }
+        }
+
+        return false;
+    }
+};
+
+```
+
+
 ------------------------------------------------------------------------------------------------------------------------
 
  Subsets (https://leetcode.com/problems/subsets/description/)
