@@ -3884,6 +3884,112 @@ public:
 
 ------------------------------------------------------------------------------------------------------------------------
 
+Island Perimeter (https://leetcode.com/problems/island-perimeter/)
+
+```cpp
+
+
+//using dfs
+class Solution {
+private: 
+    bool isSafe(int newRow, int newCol, int row, int col) {
+        return newRow >= 0 and newRow < row and newCol >= 0 and newCol < col;
+    }
+
+private: 
+    void dfs(vector<vector<int>>& grid, int row, int col, int currRow, int currCol, int &count, vector<vector<int>>& direc) {
+        grid[currRow][currCol] = 2;
+
+        for(int dir = 0; dir < 4; dir++) {
+            int newRow = currRow + direc[dir][0];
+            int newCol = currCol + direc[dir][1];
+
+            if(!isSafe(newRow, newCol, row, col) or grid[newRow][newCol] == 0) count++;
+
+            if(isSafe(newRow, newCol, row, col) and grid[newRow][newCol] == 1) {
+                dfs(grid, row, col, newRow, newCol, count, direc);
+            }
+        }
+    }
+
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int row = grid.size();
+        int col = grid[0].size();
+
+        int count = 0;
+
+        vector<vector<int>> direc = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                if(grid[i][j] == 1) {
+                    dfs(grid, row, col, i , j, count, direc);
+                }
+            }
+        }
+
+        return count;
+    }
+};
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// using bfs
+class Solution {
+private: 
+    bool isSafe(int newRow, int newCol, int row, int col) {
+        return newRow >= 0 and newRow < row and newCol >= 0 and newCol < col;
+    }
+
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int row = grid.size();
+        int col = grid[0].size();
+
+        int count = 0;
+
+        vector<vector<int>> direc = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                if(grid[i][j] == 1) {
+                    queue<pair<int, int>> q;
+                    q.push({i, j});
+
+                    while(!q.empty()) {
+                        int levelSize = q.size();
+                        for(int sz = 0; sz < levelSize; sz++) {
+                            auto [currRow, currCol] = q.front();
+                            q.pop();
+
+                            grid[currRow][currCol] = 2;
+                            for(int dir = 0; dir < 4; dir++) {
+                                int newRow = currRow + direc[dir][0];
+                                int newCol = currCol + direc[dir][1];
+
+                                if(!isSafe(newRow, newCol, row, col) or grid[newRow][newCol] == 0) count++;
+
+                                if(isSafe(newRow, newCol, row, col) and grid[newRow][newCol] == 1) {
+                                    q.push({newRow, newCol});
+                                    grid[newRow][newCol] = 2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
 Surrounded Regions (https://leetcode.com/problems/surrounded-regions/description/)
 
 To capture a surrounded region, replace all 'O's with 'X's in-place within the original board. You do not need to return anything.
