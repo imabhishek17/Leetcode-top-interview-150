@@ -4113,6 +4113,7 @@ public:
     }
 };
 ```
+
 ------------------------------------------------------------------------------------------------------------------------
 
 Rotting Oranges (https://leetcode.com/problems/rotting-oranges/)
@@ -4181,7 +4182,554 @@ public:
 };
 
 ```
+
 ------------------------------------------------------------------------------------------------------------------------
+
+Keys and Rooms (https://leetcode.com/problems/keys-and-rooms/description/)
+
+```cpp
+
+// DFS Solution
+class Solution {
+private:
+    void dfs(vector<vector<int>>& rooms, int currRoom, vector<bool>& vis) {
+        vis[currRoom] = 1;
+
+        for(int neighbor: rooms[currRoom]) {
+            if(!vis[neighbor])
+                dfs(rooms, neighbor, vis);
+        }
+    }
+
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int cc_count = 0;
+        int n = rooms.size();
+
+        vector<bool>vis(n, 0);
+
+        for(int i = 0; i < n; i++) {
+            if(!vis[i]) {
+                cc_count++;
+                dfs(rooms, i, vis);
+            }
+        }
+
+        return (cc_count == 1) ? true : false;
+    }
+};
+
+
+
+// BFS Solution
+class Solution {
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        int cc_count = 0;
+        int n = rooms.size();
+
+        vector<bool> vis(n, 0);
+
+        for (int i = 1; i < n; i++) {
+            if (!vis[i]) {
+                cc_count++;
+                // dfs(rooms, i, vis);
+
+                queue<int> q;
+                q.push(0);
+                vis[0] = 1;
+
+                while (!q.empty()) {
+                    int levelSize = q.size();
+
+                    for (int sz = 0; sz < levelSize; sz++) {
+                        int currRoom = q.front();
+                        q.pop();
+
+                        vis[currRoom] = 1;
+
+                        for (int neighbor : rooms[currRoom]) {
+                            if (!vis[neighbor])
+                                // dfs(rooms, neighbor, vis);
+                                q.push(neighbor);
+                                vis[neighbor] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return (cc_count == 1) ? true : false;
+    }
+};
+
+
+```
+------------------------------------------------------------------------------------------------------------------------
+
+Network Delay Time (https://leetcode.com/problems/path-with-minimum-effort/description/)
+
+```cpp
+
+class Solution {
+private:
+    bool isSafe(int row, int col, int currRow, int currCol) {
+        return currRow >= 0 && currRow < row && currCol >= 0 && currCol < col;
+    }
+
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int row = heights.size();
+        int col = heights[0].size();
+        vector<vector<int>> dis(row, vector<int>(col, INT_MAX));  // Fixed initialization
+        set<pair<int, pair<int, int>>> st;
+        vector<vector<bool>> vis(row, vector<bool>(col, 0));
+
+        st.insert({0, {0, 0}});
+        dis[0][0] = 0;
+        vis[0][0] = 1;
+
+        vector<vector<int>> direc = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+
+        while (!st.empty()) {
+            auto it = *(st.begin());
+            int currWeight = it.first;
+            int currRow = it.second.first;
+            int currCol = it.second.second;
+
+            st.erase(it);
+
+            // without this check too it will work.
+            if (currRow == row - 1 && currCol == col - 1) {
+                return currWeight;  // Return when reaching the bottom-right corner
+            }
+
+            vis[currRow][currCol] = 1;
+            for (int dir = 0; dir < 4; dir++) {
+                int childRow = currRow + direc[dir][0];
+                int childCol = currCol + direc[dir][1];
+
+                if (isSafe(row, col, childRow, childCol) and !vis[childRow][childCol]) {  // Fixed boundary check
+                    int diff = abs(heights[currRow][currCol] - heights[childRow][childCol]);
+                    int maxEffort = max(currWeight, diff);
+
+                    if (maxEffort < dis[childRow][childCol]) {
+                        st.insert({maxEffort, {childRow, childCol}});
+                        dis[childRow][childCol] = maxEffort;  // Fixed distance update
+                    }
+                }
+            }
+        }
+
+        return dis[row - 1][col - 1];  // Return the minimum effort required
+    }
+};
+
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Swim in Rising Water (https://leetcode.com/problems/swim-in-rising-water/description/)
+
+```cpp
+
+class Solution {
+private:
+    bool isSafe(int x, int y, int row, int col) {
+        return x >= 0 and x < row and y >= 0 and y < col;
+    }
+
+public:
+    typedef pair<int, pair<int, int>> P;
+
+    int swimInWater(vector<vector<int>>& grid) {
+        int row = grid.size();
+        int col = grid[0].size();
+
+        vector<vector<bool>> vis(row, vector<bool>(col, 0));
+
+        int time = grid[0][0];
+
+        set<P> st;
+        st.insert({time, {0, 0}});
+        vis[0][0] = 1;
+
+        vector<vector<int>> direc = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+
+        while(!st.empty()) {
+            auto it = *(st.begin());
+            int cost = it.first;
+            auto coord = it.second;
+            int currRow = coord.first;
+            int currCol = coord.second;
+            st.erase(it);
+
+            if(currRow == row -1 and currCol == col - 1) return cost;
+
+            vis[currRow][currCol] = 1;
+            for(auto& dir: direc) {
+                int newRow = currRow + dir[0];
+                int newCol = currCol + dir[1];
+
+                if(isSafe(newRow, newCol, row, col) and !vis[newRow][newCol]) {
+                    time = max(cost, grid[newRow][newCol]);
+                    st.insert({time, {newRow, newCol}});
+                }
+            }
+        }
+        
+        return time;
+    }
+};
+
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Path with Maximum Probability (https://leetcode.com/problems/path-with-maximum-probability/description/)
+
+```cpp
+
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start_node, int end_node) {
+        vector<vector<pair<int, double>>> adj(n);
+
+        vector<double> prob(n, 0);
+
+        int noOfEdges = edges.size();
+        for(int i = 0; i < noOfEdges; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            double weight = succProb[i];
+
+            adj[u].push_back({v, weight});
+            adj[v].push_back({u, weight});
+        }
+
+        set<pair<double, int>, greater<>> st;
+        vector<bool> vis(n, 0);
+        
+        st.insert({1.0, start_node});
+        prob[start_node] = 1.0;
+        vis[start_node] = 1;
+
+        while(!st.empty()) {
+            auto it = *(st.begin());
+            double cost = it.first;
+            int node = it.second;
+            st.erase(it);
+
+            if(node == end_node) return cost;
+
+            vis[node] = 1;
+            for(auto neighbor: adj[node]) {
+                int newNode = neighbor.first;
+                double newCost = neighbor.second;
+                
+                double getProb = cost * newCost;
+                if(getProb > prob[newNode] and !vis[newNode]) {
+                    st.insert({getProb, newNode});
+                    prob[newNode] = getProb;
+                }
+            }
+        }
+        return prob[end_node];
+    }
+};
+
+```
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Course Schedule (https://leetcode.com/problems/course-schedule/description/)
+
+```cpp
+
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        if(!prerequisites.size()) return true; // need to add this as other col with throw runTime exception
+
+        int row = prerequisites.size();
+
+        vector<vector<int>> adj(numCourses);
+        
+        for(int i = 0; i < row; i++) {
+            int u = prerequisites[i][1];
+            int v = prerequisites[i][0];
+
+            adj[u].push_back(v);
+        }
+
+        vector<int> inDegree(numCourses, 0);
+
+        for(int i = 0; i < numCourses; i++){
+            for(auto it: adj[i]) {
+                inDegree[it]++;
+            }
+        }
+
+        queue<int> q;
+        for(int i = 0; i < inDegree.size(); i++) {
+            if(inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        vector<int> topo;
+
+        while(!q.empty()) {
+            int currNode = q.front();
+            q.pop();
+
+            topo.push_back(currNode);
+
+            for(auto neighbor: adj[currNode]) {
+                inDegree[neighbor]--;
+                if(inDegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        return topo.size() == numCourses;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+Course Schedule II (https://leetcode.com/problems/course-schedule-ii/description/)
+
+```cpp
+
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> topo;
+
+        int row = prerequisites.size();
+
+        vector<vector<int>> adj(numCourses);
+        vector<int> inDegree(numCourses, 0);
+        
+        for(int i = 0; i < row; i++) {
+            int u = prerequisites[i][1];
+            int v = prerequisites[i][0];
+
+            adj[u].push_back(v);
+            inDegree[v]++;
+        }
+
+        queue<int> q;
+        for(int i = 0; i < inDegree.size(); i++) {
+            if(inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        while(!q.empty()) {
+            int currNode = q.front();
+            q.pop();
+
+            topo.push_back(currNode);
+
+            for(auto neighbor: adj[currNode]) {
+                inDegree[neighbor]--;
+                if(inDegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        if (topo.size() != numCourses) {
+            return {};
+        }
+
+        return topo;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
+All Ancestors of a Node in a Directed Acyclic Graph (https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/description/)
+
+```cpp
+
+//Approach: 3 (using topological sorting)
+class Solution {
+public:
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(n);
+
+        vector<int> inDegree(n, 0);
+
+        for(auto& edge: edges) {
+            int u = edge[0];
+            int v = edge[1];
+
+            adj[u].push_back(v);
+            inDegree[v]++;
+        }
+
+        queue<int> q;
+        for(int i = 0; i < n; i++) {
+            if(inDegree[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        vector<int> topo;
+        while(!q.empty()) {
+            int currNode = q.front();
+            q.pop();
+
+            topo.push_back(currNode);
+
+            for(auto neighbor: adj[currNode]) {
+                inDegree[neighbor]--;
+                if(!inDegree[neighbor]){
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        vector<set<int>> vec(n);
+
+        for(auto node: topo) {
+            for(auto it: adj[node]) {
+                vec[it].insert(node);
+                vec[it].insert(vec[node].begin(), vec[node].end());
+            }
+        }
+
+        vector<vector<int>> result(n);
+        for(int i = 0; i < n; i++) {
+            result[i] = vector<int>(vec[i].begin(), vec[i].end());
+            sort(result[i].begin(), result[i].end());
+        } 
+
+        return result;
+    }
+};
+
+
+//Approach: 2 (better and intuitive approach, by reserving the directed edge)
+class Solution {
+private:
+    void dfs(int currNode, vector<vector<int>>& adj, vector<bool>& vis) {
+        vis[currNode] = true;
+
+        for(auto neighbor: adj[currNode]) {
+            if(!vis[neighbor]) {
+                dfs(neighbor, adj, vis);
+            }
+        }
+    }
+
+public:
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> result;
+
+        int row = edges.size();
+
+        vector<vector<int>> adj(n);
+
+        for (int i = 0; i < row; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+
+            adj[v].push_back(u);
+        }
+
+        for (int i = 0; i < n; i++) {
+            vector<int> ancestor;
+            vector<bool> vis(n, 0);
+            dfs(i, adj, vis);
+
+            for(int j = 0; j < n; j++) {
+                if(j == i) continue; // one can't be ancestor of itself
+                if(vis[j] == true) {
+                    ancestor.push_back(j);
+                }
+            }
+            result.push_back(ancestor);
+        }
+
+        return result;
+    }
+};
+
+
+// Approach : 1
+class Solution {
+private:
+    void dfs(vector<vector<int>>& adj, int ancestor, int currNode,
+             vector<vector<int>>& result) {
+        for (auto& neighbor : adj[currNode]) {
+            if (result[neighbor].empty() or
+                result[neighbor].back() != ancestor) {
+                result[neighbor].push_back(ancestor);
+                dfs(adj, ancestor, neighbor, result);
+            }
+        }
+    }
+
+public:
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> result(n);
+
+        int row = edges.size();
+
+        vector<vector<int>> adj(n);
+
+        for (int i = 0; i < row; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+
+            adj[u].push_back(v);
+        }
+
+        for (int i = 0; i < n; i++) {
+            int ancestor = i;
+            // dfs(adj, ancestor, i, result);
+
+            queue<int> q;
+            q.push(i);
+
+            while (!q.empty()) {
+                int sz = q.size();
+
+                for (int i = 0; i < sz; i++) {
+                    int currNode = q.front();
+                    q.pop();
+
+                    for (auto neighbor : adj[currNode]) {
+                        if (result[neighbor].empty() or result[neighbor].back() != ancestor) {
+                            result[neighbor].push_back(ancestor);
+                            dfs(adj, ancestor, neighbor, result);
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+};
+
+```
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 01 Matrix (https://leetcode.com/problems/01-matrix/description/)
 
