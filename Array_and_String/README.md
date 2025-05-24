@@ -3200,6 +3200,20 @@ public:
 ```
 ------------------------------------------------------------------------------------------------------------------------
 
+> 💡 **Keep in mind:**  
+> When implementing a graph:
+>
+> - **Adjacency Matrix:**  
+>   `vector<vector<int>> graph(n, vector<int>(n, 0));`  
+>   Check: `if (!vis[i] && graph[curr][i] == 1)`
+>
+> - **Adjacency List:**  
+>   `vector<vector<int>> graph(n);`  
+>   Check: `if (!vis[neighbor])`
+
+
+
+
 Find if Path Exists in Graph (https://leetcode.com/problems/find-if-path-exists-in-graph/)
 
 Input: n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2
