@@ -1105,84 +1105,47 @@ Insert Interval (https://leetcode.com/problems/insert-interval/description/)
 
 */
 
-class Solution {
-public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        vector<vector<int>> res;
-        int len = intervals.size();
-        int len1 = newInterval.size();
-
-       	if(len == 0 and len1 == 0) return res;
-        if(len == 0 and len1 > 0) {
-            res.push_back(newInterval);
-            return res;
-        }
-        if(len > 0 and len1 == 0) return intervals;
-
-        intervals.push_back(newInterval);
-
-       	sort(intervals.begin(), intervals.end());
-       	vector<int> temp = intervals[0];
-        len = intervals.size();
-        for(int i = 1; i < len; i++) {
-   			if(temp[1] >= intervals[i][0]) {
-      			temp[1] = max(intervals[i][1], temp[1]);
-            } else {
-      			res.push_back(temp);
-      			temp = intervals[i];
-            }
-        }
-        res.push_back(temp);
-      	return res;
-    }
-};
-
-OR
-
 /*
     Time: O(n)
     Space: O(n)
 */
+
 class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+    vector<vector<int>> insertIntervals(vector<vector<int>> intervals, vector<int> newInterval) {
         vector<vector<int>> res;
-        int n = intervals.size();
-
-        // Add all intervals that come before the new interval
-        for (int i = 0; i < n; i++) {
-            if (intervals[i][1] < newInterval[0]) {
-                res.push_back(intervals[i]);
-            } else {
-                break;
-            }
-        }
-
-        /*
-    Since the problem states that the intervals are sorted, there's no need to sort them again; otherwise, we would have to sort the intervals before merging.
-        */
-        // sort(intervals.begin(), intervals.end());  
         
-        // Merge the new interval with the overlapping intervals
-        int start = newInterval[0];
-        int end = newInterval[1];
-        for (int i = 0; i < n; i++) {
-            if (intervals[i][0] <= end and intervals[i][1] >= start) {  // Since we are not sorting the intervals while insertion, we need to check both the start and end values for overlap.
-                start = min(start, intervals[i][0]);
-                end = max(end, intervals[i][1]);
-            } else if (intervals[i][0] > end) {
-                break;
-            }
-        }
-        res.push_back({start, end});
-        
-        // Add all remaining intervals
-        for (int i = 0; i < n; i++) {
-            if (intervals[i][0] > end) {
+        // If no existing intervals, return the new interval
+        if(!intervals.size()) return {newInterval};
+
+        // sort only if not already sorted
+        sort(intervals.begin(), intervals.end());
+
+        for(int i = 0; i < intervals.size(); i++) {
+            // Case 1: Current interval ends before newInterval starts → no overlap
+            // Add it directly to result
+            if(intervals[i][1] < newInterval[0]) {
                 res.push_back(intervals[i]);
             }
+            // Case 2: Current interval starts after newInterval ends → no overlap
+            // Stop processing; remaining intervals will be added later
+            else if(intervals[i][0] > newInterval[1]) {
+                break;
+            }
+            // Case 3: Overlapping intervals → merge with newInterval
+            else {
+                newInterval[0] = min(intervals[i][0], newInterval[0]);
+                newInterval[1] = max(intervals[i][1], newInterval[1]);
+            }
         }
-        
+        // Add the merged (or original) newInterval
+        res.push_back(newInterval);
+
+       // Add all remaining intervals after newInterval
+        for(int i = 0; i < intervals.size(); i++) {
+            if(intervals[i][0] > newInterval[1])
+                res.push_back(intervals[i]);
+        }
         return res;
     }
 };
