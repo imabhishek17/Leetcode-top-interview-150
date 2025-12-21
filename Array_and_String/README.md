@@ -1560,6 +1560,56 @@ public:
     }
 };
 
+
+/*
+Cycle Detection (Mod Logic):
+
+- Inside the cycle, there are b nodes.
+- Track the distance from slow to fast around the cycle.
+- Each step, fast gains 1 node on slow.
+- Distance updates as:
+      (distance + 1) mod b
+- Repeated +1 mod b must hit 0 ⇒ pointers meet.
+
+NOTE:
+On a circle, adding 1 repeatedly must come back to 0.
+
+Example walk-through:
+
+Initial:
+- slow is at 1
+- fast is at 3
+- difference between slow and fast = 2
+
+Step 1:
+- slow moves to 2  (+1)
+- fast moves to 5  (+2)
+- difference = 3
+
+Step 2:
+- slow moves to 3  (+1)
+- fast moves to 7  (+2)
+- difference = 4
+
+Step 3:
+- slow moves to 4  (+1)
+- fast moves to 9  (+2)
+- difference = 5
+
+Step 4:
+- slow moves to 5  (+1)
+- fast moves to 11 (+2)
+- difference = 6
+
+Step 5:
+- slow moves to 6  (+1)
+- fast moves to 13 (+2)
+- difference = 7
+
+The difference keeps increasing by 1 modulo b,
+so it must eventually become 0 — meaning slow and fast meet.
+*/
+
 ```
 
 
