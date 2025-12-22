@@ -1540,6 +1540,45 @@ Explanation: Each temperature index is pushed and popped from the stack at most 
 Linked List Cycle (https://leetcode.com/problems/linked-list-cycle/description/)
 
 ```cpp
+
+// struct ListNode {
+//     int val;
+//     ListNode* next;
+// };
+
+/*
+Brute-force approach using a map to track node addresses. We store visited node pointers (not values) because values
+in a linked list can be duplicate even when there is no cycle. If a node address is encountered again, a cycle exists.
+TC: O(N)
+SC: O(N)
+*/
+
+
+class Solution {
+public:
+    bool hasCycle(ListNode* head) {
+        map<ListNode*, bool>mp;
+        ListNode *ptr = head;
+
+        while(ptr) {
+            ListNode *temp = ptr -> next;
+            if(!mp.count(temp)) {
+                mp.insert({temp, true});
+                ptr = ptr->next;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+/*
+Effcient approach (Space optimised)
+TC: O(N)
+SC: O(1)
+*/
+
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
